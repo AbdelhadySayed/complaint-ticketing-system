@@ -1,7 +1,4 @@
-📜 Final README.md for the Main Repository
-md
-نسخ
-تحرير
+
 # 📢 Complaint Ticketing & Resolution System  
 
 ## 🚀 Project Overview  
@@ -30,8 +27,6 @@ complaint-ticketing-system/
 │── .gitignore # Files to ignore in version control
 
 yaml
-نسخ
-تحرير
 
 Each component is **a separate GitHub repository** added as a **submodule**, allowing independent development while keeping everything organized.
 
@@ -44,28 +39,24 @@ git clone --recurse-submodules https://github.com/yourusername/complaint-ticketi
 cd complaint-ticketing-system
 2️⃣ Initialize & Update Submodules
 bash
-نسخ
-تحرير
+
 git submodule update --init --recursive
 🚀 Running the Project
 🖥️ Run the Backend
 bash
-نسخ
-تحرير
+
 cd backend  
 python app.py  
 OR if using Node.js:
 
 bash
-نسخ
-تحرير
+
 cd backend  
 npm install  
 npm start  
 🌐 Run the Frontend
 bash
-نسخ
-تحرير
+
 cd frontend  
 npm install  
 npm start  
@@ -98,8 +89,7 @@ This project is open-source under the MIT License.
 ✨ If you like this project, give it a ⭐ star and contribute! ✨
 
 yaml
-نسخ
-تحرير
+
 
 ---
 
