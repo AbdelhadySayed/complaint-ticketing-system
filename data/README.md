@@ -5,7 +5,7 @@ Since datasets can be large, they are not stored in this repository. Please down
 
 ## 📌 Dataset Links
 1️⃣ **Customer Support Training Data**  
-🔗 [Download Link](https://www.kaggle.com/datasets/omarsobhy14/university-students-complaints-and-reports/data)  
+🔗 [Download Link](https://www.kaggle.com/datasets/talaviyabhavik/customer-support-training-data)  
 
 2️⃣ **University Students Complaints & Reports**  
 🔗 [Download Link](https://www.kaggle.com/datasets/omarsobhy14/university-students-complaints-and-reports/data)  
