@@ -1,0 +1,3 @@
+[submodule "frontend"]
+	path = frontend
+	url = https://github.com/Sheim1278/complaint-ticketing-frontend.git
