@@ -83,8 +83,6 @@ Want to contribute? Follow these steps:
 3️⃣ Commit your changes 🔄
 4️⃣ Push and submit a pull request 🚀
 
-📜 License
-This project is open-source under the MIT License.
 
 ✨ If you like this project, give it a ⭐ star and contribute! ✨
 
