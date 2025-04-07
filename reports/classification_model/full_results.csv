@@ -1,0 +1,36 @@
+Ticket#,Ticket,Model,Correct,Main,Additional,MainAcc,MulticlassAccuracy,AllCorrect
+1,I want to cancel my order and get a refund because I never received it.,Logistic Regression,"['cancel_order', 'get_refund']",cancel_order,['get_refund'],1,1,1
+1,I want to cancel my order and get a refund because I never received it.,SVM,"['cancel_order', 'get_refund']",cancel_order,"['get_invoice', 'get_refund']",1,0,1
+1,I want to cancel my order and get a refund because I never received it.,SGD,"['cancel_order', 'get_refund']",cancel_order,"['get_refund', 'delete_account', 'account_recover_password']",1,0,1
+1,I want to cancel my order and get a refund because I never received it.,Random Forest,"['cancel_order', 'get_refund']",cancel_order,['get_refund'],1,1,1
+1,I want to cancel my order and get a refund because I never received it.,Naïve Bayes,"['cancel_order', 'get_refund']",get_refund,"['cancel_order', 'delete_account']",1,0,1
+1,I want to cancel my order and get a refund because I never received it.,LSTM,"['cancel_order', 'get_refund']",account_registration_problems,"['get_refund', 'cancel_order']",0,0,1
+1,I want to cancel my order and get a refund because I never received it.,BERT,"['cancel_order', 'get_refund']",get_refund,[],1,0,0
+2,"Can you help me track my recent order? Also, I need to change my shipping address.",Logistic Regression,"['track_order', 'change_shipping_address']",change_shipping_address,['change_order'],1,0,0
+2,"Can you help me track my recent order? Also, I need to change my shipping address.",SVM,"['track_order', 'change_shipping_address']",change_shipping_address,['track_order'],1,1,1
+2,"Can you help me track my recent order? Also, I need to change my shipping address.",SGD,"['track_order', 'change_shipping_address']",change_shipping_address,"['track_order', 'contact_human_agent', 'newsletter_subscription']",1,0,1
+2,"Can you help me track my recent order? Also, I need to change my shipping address.",Random Forest,"['track_order', 'change_shipping_address']",change_shipping_address,"['set_up_shipping_address', 'change_order']",1,0,0
+2,"Can you help me track my recent order? Also, I need to change my shipping address.",Naïve Bayes,"['track_order', 'change_shipping_address']",change_shipping_address,[],1,0,0
+2,"Can you help me track my recent order? Also, I need to change my shipping address.",LSTM,"['track_order', 'change_shipping_address']",track_order,[],1,0,0
+2,"Can you help me track my recent order? Also, I need to change my shipping address.",BERT,"['track_order', 'change_shipping_address']",change_shipping_address,[],1,0,0
+3,I forgot my password and now my payment isn't going through. Help!,Logistic Regression,"['account_recover_password', 'payment_issue']",account_recover_password,[],1,0,0
+3,I forgot my password and now my payment isn't going through. Help!,SVM,"['account_recover_password', 'payment_issue']",account_recover_password,[],1,0,0
+3,I forgot my password and now my payment isn't going through. Help!,SGD,"['account_recover_password', 'payment_issue']",account_recover_password,"['check_payment_methods', 'payment_issue', 'contact_human_agent']",1,0,1
+3,I forgot my password and now my payment isn't going through. Help!,Random Forest,"['account_recover_password', 'payment_issue']",payment_issue,"['check_payment_methods', 'account_recover_password']",1,0,1
+3,I forgot my password and now my payment isn't going through. Help!,Naïve Bayes,"['account_recover_password', 'payment_issue']",account_recover_password,[],1,0,0
+3,I forgot my password and now my payment isn't going through. Help!,LSTM,"['account_recover_password', 'payment_issue']",payment_issue,[],1,0,0
+3,I forgot my password and now my payment isn't going through. Help!,BERT,"['account_recover_password', 'payment_issue']",payment_issue,[],1,0,0
+4,"Where can I see available delivery options? Also, I'd like to delete my account permanently.",Logistic Regression,"['delivery_options', 'delete_account']",delete_account,['delivery_options'],1,1,1
+4,"Where can I see available delivery options? Also, I'd like to delete my account permanently.",SVM,"['delivery_options', 'delete_account']",delete_account,[],1,0,0
+4,"Where can I see available delivery options? Also, I'd like to delete my account permanently.",SGD,"['delivery_options', 'delete_account']",delete_account,"['delivery_options', 'account_recover_password', 'contact_human_agent']",1,0,1
+4,"Where can I see available delivery options? Also, I'd like to delete my account permanently.",Random Forest,"['delivery_options', 'delete_account']",delete_account,['delivery_options'],1,1,1
+4,"Where can I see available delivery options? Also, I'd like to delete my account permanently.",Naïve Bayes,"['delivery_options', 'delete_account']",delivery_options,['delete_account'],1,1,1
+4,"Where can I see available delivery options? Also, I'd like to delete my account permanently.",LSTM,"['delivery_options', 'delete_account']",delivery_period,['check_cancellation_fee'],0,0,0
+4,"Where can I see available delivery options? Also, I'd like to delete my account permanently.",BERT,"['delivery_options', 'delete_account']",delete_account,[],1,0,0
+5,"I tried to contact support, but no human agent responded. My payment also failed!",Logistic Regression,"['contact_human_agent', 'payment_issue']",contact_human_agent,[],1,0,0
+5,"I tried to contact support, but no human agent responded. My payment also failed!",SVM,"['contact_human_agent', 'payment_issue']",contact_human_agent,[],1,0,0
+5,"I tried to contact support, but no human agent responded. My payment also failed!",SGD,"['contact_human_agent', 'payment_issue']",contact_human_agent,"['contact_customer_service', 'account_recover_password', 'newsletter_subscription']",1,0,0
+5,"I tried to contact support, but no human agent responded. My payment also failed!",Random Forest,"['contact_human_agent', 'payment_issue']",contact_human_agent,"['check_payment_methods', 'contact_customer_service', 'payment_issue']",1,0,1
+5,"I tried to contact support, but no human agent responded. My payment also failed!",Naïve Bayes,"['contact_human_agent', 'payment_issue']",contact_human_agent,[],1,0,0
+5,"I tried to contact support, but no human agent responded. My payment also failed!",LSTM,"['contact_human_agent', 'payment_issue']",contact_customer_service,[],0,0,0
+5,"I tried to contact support, but no human agent responded. My payment also failed!",BERT,"['contact_human_agent', 'payment_issue']",payment_issue,[],1,0,0
