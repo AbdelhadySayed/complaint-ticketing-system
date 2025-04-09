@@ -15,20 +15,28 @@ This is a **centralized complaint management system** designed to handle and res
 
 ## 📂 Repository Structure  
 complaint-ticketing-system/
-│── frontend/ # Frontend UI (React, Angular, or .NET)
-│── backend/ # Backend API (Flask, FastAPI, or Node.js)
+│── frontend/ # Frontend UI (React)
+|
+│── backend/ # Backend API (Flask, FastAPI)
+|
 │── ml_models/ # AI models for complaint categorization & recommendation
+|
 │── notebooks/ # Jupyter notebooks for data analysis & ML experiments
+|
 │── data/ # Sample datasets for training & testing AI models
+|
 │── docs/ # Documentation, API references, & architecture diagrams
+|
 │── tests/ # Unit tests for various components
+|
 │── README.md # Main project documentation
+|
 │── LICENSE # Open-source license
 │── .gitignore # Files to ignore in version control
 
 yaml
 
-Each component is **a separate GitHub repository** added as a **submodule**, allowing independent development while keeping everything organized.
+Each component is allowing independent development while keeping everything organized.
 
 ---
 
