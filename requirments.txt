@@ -9,7 +9,6 @@ scikit_learn==1.6.1
 seaborn==0.13.2
 sklearn_features==0.0.2
 xgboost==3.0.0
-contraction
 flask
 plotly
 streamlit
@@ -20,7 +19,13 @@ joblib
 flask_restx
 flask_jwt_extended
 flask_migrate
-flask_sqlalchemysss
+flask_sqlalchemy
+contractions
+textblob
+transformers tensorflow
+tensorflow
+tf-keras
+
 
 
 
