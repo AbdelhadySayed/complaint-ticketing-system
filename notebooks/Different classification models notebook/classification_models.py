@@ -1834,6 +1834,8 @@ def calculate_metrics(results_df, label_encoder):
         )
         for model in metrics['Model']
     ]
+     # Add test accuracy for dataset
+    metrics['Test Accuracy_dataset'] = metrics['Model'].map(TEST_ACCURACIES)
 
     return metrics.round(3)
 
@@ -1928,6 +1930,7 @@ if __name__ == "__main__":
     # Run evaluation
     results_df = evaluate_all_models(test_texts, correct_labels)
     final_metrics = calculate_metrics(results_df, components['label_encoder'])
+
 
     # Save and display
 
