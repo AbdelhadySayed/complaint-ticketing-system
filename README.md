@@ -15,7 +15,7 @@ This system addresses the challenges of decentralized and manual complaint handl
 - 🤖 Recommendation models for faster resolutions  
 - 🗣️ User and admin feedback loops  
 
-It is built as a **modular system**, where each component (frontend, backend, ML, etc.) is maintained as a **Git submodule** for cleaner collaboration.
+It is built as a **modular system**, where component (frontend) is maintained as a **Git submodule** for cleaner collaboration.
 
 ---
 
