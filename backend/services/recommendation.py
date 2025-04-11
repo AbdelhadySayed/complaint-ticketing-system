@@ -7,7 +7,7 @@ import re
 import os
 
 
-recommend_model_path = r"C:/Users/ahmed/Desktop/project depi\BART_last_checkpoint"
+recommend_model_path = "C:/Users/ahmed/Desktop/project depi/BART_last_checkpoint"
 
 recommend_tokenizer = AutoTokenizer.from_pretrained(recommend_model_path)
 recommend_model = AutoModelForSeq2SeqLM.from_pretrained(recommend_model_path)
@@ -115,11 +115,16 @@ def preprocess_generated_response(response):
 ### apply the recommenation model on the complaint description to recommend a resolution 
 def generate_response(description):
     description = preprocess_text(description)
+
+    if len(description) ==0:
+        return None
+
     inputs = recommend_tokenizer(description, return_tensors="pt", max_length=512, truncation=True)
     output = recommend_model.generate(**inputs, max_length=512)
     initial_response = recommend_tokenizer.decode(output[0], skip_special_tokens=True)
     formatted_response = preprocess_generated_response(initial_response)
+
     return formatted_response
 
 
-#print(generate_response("refund my money."))
+#print(generate_response("I want to cancel my order no 123456"))

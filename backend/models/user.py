@@ -10,10 +10,11 @@ class User(db.Model):
     password_hash = db.Column(db.String(128), nullable=False)
     role = db.Column(db.String(50), default="client")  # Default role is "client"
     department_id = db.Column(db.Integer, db.ForeignKey('department.id'), nullable=True)
+    #department = db.Column(db.String(50), default="client")
 
     # Relationships
     complaints = db.relationship('Complaint', backref='user', lazy=True)
-    department = db.relationship('Department', backref=db.backref('users', lazy=True))
+    #department = db.relationship('Department', backref=db.backref('users', lazy=True))
 
     @property
     def is_admin(self):
@@ -57,9 +58,9 @@ def insert_users():
             "username": f"{dept.lower()}_user",
             "email": f"{dept.lower()}@company_domain.com",
             "password": "password123",
-            "role": "department_user",
-            "department": dept
+            "role": dept,
         }
+
         for dept in department_categories
     ]
 
@@ -71,18 +72,17 @@ def insert_users():
             continue  # Skip duplicate entry
 
         # Fetch department by name
-        department = Department.query.filter_by(name=user_data["department"]).first()
-        if not department:
-            print(f"Department {user_data['department']} not found. Skipping user {user_data['email']}.")
-            continue
+        #department = Department.query.filter_by(name=user_data["department"]).first()
+        #if not department:
+        #    print(f"Department {user_data['department']} not found. Skipping user {user_data['email']}.")
+        #   continue
 
         # Create new user
         new_user = User(
             username=user_data["username"],
             email=user_data["email"],
             #password_hash=set_password(user_data["password"]),  # Hash password
-            role=user_data["role"],
-            department=department
+            role=user_data["role"] +"_department",
         )
         new_user.set_password("password123")  # Hashes the password before storing
         # Add and commit the new user

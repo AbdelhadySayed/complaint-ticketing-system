@@ -12,7 +12,9 @@ from resources.auth import api as auth_ns
 from resources.complaint import api as complaint_ns
 from extensions import blacklist  # Import blacklist
 from flask_cors import CORS
-
+# from resources.auth_views import auth_ns
+from resources.complaint_views import complaint_ns
+from resources.analytics_views import analytics_ns
 # Define authorizations for Swagger UI
 authorizations = {
     'Bearer Auth': {
@@ -49,7 +51,7 @@ def create_app(config_class=Config):
     )
     api.add_namespace(auth_ns)
     api.add_namespace(complaint_ns)
-
+    api.add_namespace(analytics_ns)
     with app.app_context():
         db.create_all()
         # insert_departments()

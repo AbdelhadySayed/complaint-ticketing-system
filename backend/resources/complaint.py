@@ -15,6 +15,7 @@ complaint_model = api.model('Complaint', {
     'description': fields.String(required=True)
 })
 
+
 @api.route('/addcomplaint')
 class AddComplaint(Resource):
     @api.expect(complaint_model)
@@ -25,9 +26,11 @@ class AddComplaint(Resource):
         data = api.payload
         title = data["title"]
         description = data["description"]
-        category = 'Pending' # to be changed to categorize_complaint(data['description'])
+        # to be changed to categorize_complaint(data['description'])
+        category = 'Pending'
         ai_response = generate_response(description)
-        department_id = None  # Default to None (or use the "Pending" department ID)
+        # Default to None (or use the "Pending" department ID)
+        department_id = None
 
         # Create a new complaint with default values
         new_complaint = Complaint(
@@ -47,19 +50,22 @@ class AddComplaint(Resource):
             new_complaint.department_id = department.id
         else:
             # If no department matches the category, assign it to the "Pending" department
-            pending_department = Department.query.filter_by(name='Pending').first()
+            pending_department = Department.query.filter_by(
+                name='Pending').first()
             if pending_department:
                 new_complaint.department_id = pending_department.id
 
         # Update the complaint with the category and AI response
-        #new_complaint.category = category
-        #new_complaint.ai_response = ai_response
+        # new_complaint.category = category
+        # new_complaint.ai_response = ai_response
         db.session.commit()
 
-        return {"title":title,
-                "description":description,
+        return {"id": new_complaint.id,
+                "title": title,
+                "description": description,
                 "response": ai_response,
                 "category": category}, 201
+
 
 @api.route('/usercomplaints/<int:user_id>')
 class UserComplaints(Resource):
@@ -80,6 +86,7 @@ class UserComplaints(Resource):
             'department_id': c.department_id
         } for c in complaints], 200
 
+
 @api.route('/allcomplaints')
 class AllComplaints(Resource):
     @jwt_required()
@@ -90,10 +97,11 @@ class AllComplaints(Resource):
         user = User.query.get(current_user_id)
         # if not user.is_admin:
         #     return {'message': 'Unauthorized'}, 403
-        if user.role=="client":
+        if user.role == "client":
             complaints = user.complaints
         else:
-            complaints=Complaint.query.filter_by(department_id=user.department_id)
+            complaints = Complaint.query.filter_by(
+                department_id=user.department_id)
 
         return [{
             'id': c.id,
@@ -105,8 +113,8 @@ class AllComplaints(Resource):
             'user_id': c.user_id,
             'department_id': c.department_id
         } for c in complaints], 200
-    
-    
+
+
 @api.route('/departmentcomplaints/<int:department_id>')
 class DepartmentComplaints(Resource):
     @jwt_required()
@@ -115,7 +123,8 @@ class DepartmentComplaints(Resource):
         department = Department.query.get(department_id)
         if not department:
             return {'message': 'Department not found'}, 404
-        complaints = Complaint.query.filter_by(department_id=department_id).all()
+        complaints = Complaint.query.filter_by(
+            department_id=department_id).all()
         return [{
             'id': c.id,
             'title': c.title,
@@ -125,7 +134,6 @@ class DepartmentComplaints(Resource):
             'admin_response': c.admin_response,
             'user_id': c.user_id
         } for c in complaints], 200
-
 
 
 @api.route('/respondtocomplaint/<int:complaint_id>')
