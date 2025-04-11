@@ -1643,6 +1643,74 @@ detailed_df.to_csv("detailed_results.csv", index=False)
 print("\n=== Final Performance Report ===")
 print(pd.DataFrame(performance_data).round(2).to_markdown(index=False))
 
+# Add this dictionary mapping test accuracies
+TEST_ACCURACIES = {
+    "BERT": 0.99695555,
+    "SVM": 0.9955,
+    "SGD": 0.9896,
+    "Logistic Regression": 0.9933,
+    "Naïve Bayes": 0.9907,
+    "Random Forest": 0.988,
+    "LSTM": 0.98437183
+}
+
+# Modify metrics calculation
+def calculate_metrics(results_df, label_encoder):
+    """Calculate final performance metrics"""
+    # Initialize and fit the MultiLabelBinarizer with ALL possible classes
+    mlb = MultiLabelBinarizer()
+    mlb.fit([label_encoder.classes_])  # Fit on all possible categories
+
+    # Transform true and predicted labels
+    y_true = mlb.transform(results_df['Correct'])
+    y_pred = mlb.transform(
+        results_df.apply(lambda x: [x['Main']] + x['Additional'], axis=1)
+    )
+
+    metrics = results_df.groupby('Model').agg(
+        MainAccuracy=('MainAcc', 'mean'),
+        MulticlassAccuracy=('MulticlassAccuracy', 'mean'),
+        MicroF1=('Model', lambda x: f1_score(y_true[x.index], y_pred[x.index],
+                                            average='micro', zero_division=0))
+    ).reset_index()
+
+    # Add test accuracy for dataset
+    metrics['Test Accuracy_dataset'] = metrics['Model'].map(TEST_ACCURACIES)
+
+    # Reorder columns
+    return metrics[['Model', 'Test Accuracy_dataset', 'MainAccuracy',
+                    'MulticlassAccuracy', 'MicroF1']].round(3)
+# ========== Execution (Fixed) ==========
+if __name__ == "__main__":
+    components = load_components()  # Load once here
+
+    # Test data
+    test_texts =  [
+    "I want to cancel my order and get a refund because I never received it.",
+    "Can you help me track my recent order? Also, I need to change my shipping address.",
+    "I forgot my password and now my payment isn't going through. Help!",
+    "Where can I see available delivery options? Also, I'd like to delete my account permanently.",
+    "I tried to contact support, but no human agent responded. My payment also failed!"
+]
+
+    correct_labels = [
+    ["cancel_order", "get_refund"],
+    ["track_order", "change_shipping_address"],
+    ["account_recover_password", "payment_issue"],
+    ["delivery_options", "delete_account"],
+    ["contact_human_agent", "payment_issue"]
+]  # Corresponding correct labels
+
+    # Run evaluation
+    results_df = evaluate_all_models(test_texts, correct_labels)
+    final_metrics = calculate_metrics(results_df, components['label_encoder'])
+
+
+    # Save and display
+
+    print("\n=== Final Metrics ===")
+    print(final_metrics.to_markdown(index=False))
+
 import joblib
 import numpy as np
 import pandas as pd
@@ -1869,74 +1937,6 @@ if __name__ == "__main__":
     print("\n=== Final Metrics ===")
     print(final_metrics.to_markdown(index=False))
 
-# Add this dictionary mapping test accuracies
-TEST_ACCURACIES = {
-    "BERT": 0.99695555,
-    "SVM": 0.9955,
-    "SGD": 0.9896,
-    "Logistic Regression": 0.9933,
-    "Naïve Bayes": 0.9907,
-    "Random Forest": 0.988,
-    "LSTM": 0.98437183
-}
-
-# Modify metrics calculation
-def calculate_metrics(results_df, label_encoder):
-    """Calculate final performance metrics"""
-    # Initialize and fit the MultiLabelBinarizer with ALL possible classes
-    mlb = MultiLabelBinarizer()
-    mlb.fit([label_encoder.classes_])  # Fit on all possible categories
-
-    # Transform true and predicted labels
-    y_true = mlb.transform(results_df['Correct'])
-    y_pred = mlb.transform(
-        results_df.apply(lambda x: [x['Main']] + x['Additional'], axis=1)
-    )
-
-    metrics = results_df.groupby('Model').agg(
-        MainAccuracy=('MainAcc', 'mean'),
-        MulticlassAccuracy=('MulticlassAccuracy', 'mean'),
-        MicroF1=('Model', lambda x: f1_score(y_true[x.index], y_pred[x.index],
-                                            average='micro', zero_division=0))
-    ).reset_index()
-
-    # Add test accuracy for dataset
-    metrics['Test Accuracy_dataset'] = metrics['Model'].map(TEST_ACCURACIES)
-
-    # Reorder columns
-    return metrics[['Model', 'Test Accuracy_dataset', 'MainAccuracy',
-                    'MulticlassAccuracy', 'MicroF1']].round(3)
-# ========== Execution (Fixed) ==========
-if __name__ == "__main__":
-    components = load_components()  # Load once here
-
-    # Test data
-    test_texts =  [
-    "I want to cancel my order and get a refund because I never received it.",
-    "Can you help me track my recent order? Also, I need to change my shipping address.",
-    "I forgot my password and now my payment isn't going through. Help!",
-    "Where can I see available delivery options? Also, I'd like to delete my account permanently.",
-    "I tried to contact support, but no human agent responded. My payment also failed!"
-]
-
-    correct_labels = [
-    ["cancel_order", "get_refund"],
-    ["track_order", "change_shipping_address"],
-    ["account_recover_password", "payment_issue"],
-    ["delivery_options", "delete_account"],
-    ["contact_human_agent", "payment_issue"]
-]  # Corresponding correct labels
-
-    # Run evaluation
-    results_df = evaluate_all_models(test_texts, correct_labels)
-    final_metrics = calculate_metrics(results_df, components['label_encoder'])
-
-
-    # Save and display
-
-    print("\n=== Final Metrics ===")
-    print(final_metrics.to_markdown(index=False))
-
 import matplotlib.pyplot as plt
 import pandas as pd
 
@@ -1984,24 +1984,24 @@ plt.show()
 import numpy as np
 
 # Normalize data to 0-1 scale
-normalized_df = (df - df.min()) / (df.max() - df.min())
+# normalized_df = (df - df.min()) / (df.max() - df.min())
 
 # Create radar chart
-categories = list(normalized_df.columns)
+categories = list(df.columns)
 N = len(categories)
 angles = np.linspace(0, 2 * np.pi, N, endpoint=False).tolist()
 
 fig = plt.figure(figsize=(8, 8))
 ax = fig.add_subplot(111, polar=True)
 
-for model in normalized_df.index:
-    values = normalized_df.loc[model].tolist()
+for model in df.index:
+    values = df.loc[model].tolist()
     values += values[:1]  # Close the radar chart
     ax.plot(angles + angles[:1], values, label=model)
 
 ax.set_xticks(angles)
 ax.set_xticklabels(categories)
-plt.title("Radar Chart of Model Performance (Normalized)",pad=30)
+plt.title("Radar Chart of Model Performance ",pad=30)
 plt.legend(loc='upper right', bbox_to_anchor=(1.3, 1.1))
 plt.show()
 
