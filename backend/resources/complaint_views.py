@@ -7,6 +7,7 @@ from models import db
 from services.recommendation import generate_response
 from services.classification import categorize_complaint
 from datetime import datetime
+from sqlalchemy import desc
 
 
 complaint_ns = Namespace('complaint', description='Complaint operations')
@@ -201,7 +202,6 @@ class AllComplaints(Resource):
     # @api.doc(security='Bearer Auth')  # Require Bearer Auth
     def get(self):
         current_user_id = get_jwt_identity()
-        print(current_user_id)
         user = User.query.get(current_user_id)
         # if not user.is_admin:
         #     return {'message': 'Unauthorized'}, 403
@@ -209,7 +209,7 @@ class AllComplaints(Resource):
             complaints = user.complaints
         else:
             complaints = Complaint.query.filter_by(
-                department_id=user.department_id)
+                category=user.role[:-11]).order_by(desc(Complaint.id)).all()
         return [{
             'id': c.id,
             'title': c.title,
