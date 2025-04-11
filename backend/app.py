@@ -7,9 +7,11 @@ from config import Config
 from models import db
 from models.user import insert_users
 from models.department import insert_departments
+from models.complaint import Complaint
 from resources.auth import api as auth_ns
 from resources.complaint import api as complaint_ns
 from extensions import blacklist  # Import blacklist
+from flask_cors import CORS
 
 # Define authorizations for Swagger UI
 authorizations = {
@@ -21,6 +23,7 @@ authorizations = {
     }
 }
 
+
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
@@ -28,7 +31,7 @@ def create_app(config_class=Config):
     db.init_app(app)
     jwt = JWTManager(app)
     migrate = Migrate(app, db)
-
+    cors = CORS(app, origins="*", send_wildcard=True)
     # Token blacklist setup
     blacklist = set()
 
@@ -49,9 +52,10 @@ def create_app(config_class=Config):
 
     with app.app_context():
         db.create_all()
-        #insert_departments()
-        #insert_users()
+        # insert_departments()
+        # insert_users()
     return app
+
 
 if __name__ == '__main__':
     app = create_app()

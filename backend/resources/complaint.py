@@ -83,13 +83,18 @@ class UserComplaints(Resource):
 @api.route('/allcomplaints')
 class AllComplaints(Resource):
     @jwt_required()
-    @api.doc(security='Bearer Auth')  # Require Bearer Auth
+    # @api.doc(security='Bearer Auth')  # Require Bearer Auth
     def get(self):
         current_user_id = get_jwt_identity()
+        print(current_user_id)
         user = User.query.get(current_user_id)
-        if not user.is_admin:
-            return {'message': 'Unauthorized'}, 403
-        complaints = Complaint.query.all()
+        # if not user.is_admin:
+        #     return {'message': 'Unauthorized'}, 403
+        if user.role=="client":
+            complaints = user.complaints
+        else:
+            complaints=Complaint.query.filter_by(department_id=user.department_id)
+
         return [{
             'id': c.id,
             'title': c.title,
@@ -100,7 +105,8 @@ class AllComplaints(Resource):
             'user_id': c.user_id,
             'department_id': c.department_id
         } for c in complaints], 200
-
+    
+    
 @api.route('/departmentcomplaints/<int:department_id>')
 class DepartmentComplaints(Resource):
     @jwt_required()

@@ -7,7 +7,7 @@ import re
 import os
 
 
-recommend_model_path = "F:/DEPI/Project/complaint_app/services/checkpoint-200"
+recommend_model_path = r"C:/Users/ahmed/Desktop/project depi\BART_last_checkpoint"
 
 recommend_tokenizer = AutoTokenizer.from_pretrained(recommend_model_path)
 recommend_model = AutoModelForSeq2SeqLM.from_pretrained(recommend_model_path)
