@@ -9,6 +9,7 @@ import os
 
 recommend_model_path = "C:/Users/ahmed/Desktop/project depi/BART_last_checkpoint"
 
+
 recommend_tokenizer = AutoTokenizer.from_pretrained(recommend_model_path)
 recommend_model = AutoModelForSeq2SeqLM.from_pretrained(recommend_model_path)
 

@@ -20,6 +20,7 @@ model = joblib.load("services/classification_models/SGD.pkl")
 # Load TF-IDF Vectorizer
 tfidf_vectorizer = joblib.load("services/classification_models/tfidf_vectorizer.pkl")
 
+
 def preprocess_text(text):
     # Remove special placeholders like {{Order Number}}
     text = re.sub(r'{{.*?}}', '', text)
