@@ -1,0 +1,15 @@
+#  the real departments names that simulates the real world departments in the banking system
+
+Your Category,Banking Department,Compliance Category
+ACCOUNT,Retail Banking,Customer Identification and Verification
+ORDER,Operations,Transaction Processing Compliance
+REFUND,Operations,Refund Processing Compliance
+INVOICE,Commercial Banking,Billing Compliance
+CONTACT,Customer Service,Customer Communication Compliance
+PAYMENT,Treasury Management,Payment Processing Compliance
+FEEDBACK,Marketing and Communications,Customer Feedback Compliance
+DELIVERY,Retail Banking,Service Delivery Compliance
+SHIPPING,Operations,Logistics Compliance
+SUBSCRIPTION,Retail Banking,Subscription Services Compliance
+CANCEL,Customer Service,Cancellation Policy Compliance
+PENDING,Operations,Pending Transactions Compliance
