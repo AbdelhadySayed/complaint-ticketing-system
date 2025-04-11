@@ -8,12 +8,11 @@ from models import db
 from models.user import insert_users
 from models.department import insert_departments
 from models.complaint import Complaint
-from resources.auth import api as auth_ns
-from resources.complaint import api as complaint_ns
 from extensions import blacklist  # Import blacklist
 from flask_cors import CORS
 # from resources.auth_views import auth_ns
 from resources.complaint_views import complaint_ns
+from resources.auth_views import auth_ns
 from resources.analytics_views import analytics_ns
 # Define authorizations for Swagger UI
 authorizations = {
