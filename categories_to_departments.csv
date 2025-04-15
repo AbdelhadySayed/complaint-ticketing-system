@@ -1,0 +1,12 @@
+Category,Department,Description
+"ORDER","Orders & Purchases","Related to order placement and management"
+"SHIPPING","Shipping & Delivery","Related to shipment changes and addresses"
+"DELIVERY","Shipping & Delivery","Delivery options, periods, and issues"
+"CANCEL","Returns & Refunds","Order cancellation and fee inquiries"
+"INVOICE","Billing & Invoices","Invoice generation and review"
+"PAYMENT","Billing & Invoices","Issues with or questions about payments"
+"REFUND","Returns & Refunds","Refund requests and tracking"
+"FEEDBACK","Feedback & Community","Reviews, complaints, and suggestions"
+"CONTACT","Customer Service","Customer inquiries and live agent requests"
+"ACCOUNT","Accounts & Access","Login, registration, and account management"
+"SUBSCRIPTION","Feedback & Community","Newsletters and promotional preferences"

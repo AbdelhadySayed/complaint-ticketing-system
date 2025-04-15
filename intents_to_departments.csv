@@ -1,0 +1,28 @@
+Intent,Department,Description
+place_order,Orders & Purchases,Place a new order
+change_order,Orders & Purchases,Modify an existing order
+track_order,Orders & Purchases,Check order shipment status
+cancel_order,Returns & Refunds,Cancel an existing order
+check_cancellation_fee,Returns & Refunds,Check if there's a cancellation fee
+get_refund,Returns & Refunds,Request a refund for a purchase
+track_refund,Returns & Refunds,Track status of a refund request
+check_refund_policy,Returns & Refunds,Ask about the refund policy
+check_invoice,Billing & Invoices,Verify or review an invoice
+get_invoice,Billing & Invoices,Request an invoice copy
+payment_issue,Billing & Invoices,Report a payment problem
+check_payment_methods,Billing & Invoices,Ask about available payment methods
+create_account,Accounts & Access,Sign up for a new account
+delete_account,Accounts & Access,Request to delete account
+recover_password,Accounts & Access,Request help resetting password
+edit_account,Accounts & Access,Change personal details
+registration_problems,Accounts & Access,Issues during account registration
+switch_account,Accounts & Access,Switch to a different user account
+change_shipping_address,Shipping & Delivery,Update shipping destination
+set_up_shipping_address,Shipping & Delivery,Add a new shipping address
+delivery_options,Shipping & Delivery,Ask about available shipping methods
+delivery_period,Shipping & Delivery,Ask about delivery timing
+contact_customer_service,Customer Service,Request to speak with support
+contact_human_agent,Customer Service,Specifically request human support
+review,Feedback & Community,Submit a product or service review
+complaint,Feedback & Community,Submit a general complaint
+newsletter_subscription,Feedback & Community,Manage email or newsletter preferences
