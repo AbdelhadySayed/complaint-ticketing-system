@@ -27,15 +27,8 @@ dependencies = [
     "transformers",
     "werkzeug",
     "gunicorn",
-    "torch",
-    "torchvision",
-    "torchaudio",
+    "pysqlite3-binary",
 ]
-[tool.uv.sources]
-torch = { index = "pytorch" }
 
-[[tool.uv.index]]
-name = "pytorch"
-url = "https://download.pytorch.org/whl/cu126"
 
 

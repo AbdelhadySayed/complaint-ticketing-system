@@ -22,4 +22,4 @@ Dockerfile
 *.swp
 
 #ignore chromadb files
-chrome_langchain_db/
+# chrome_langchain_db/

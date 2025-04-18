@@ -9,6 +9,16 @@ from services.classification import categorize_complaint
 from datetime import datetime
 from sqlalchemy import desc
 from services.recommender import chat_with_model
+import pandas as pd
+
+# Load mappings using pandas
+categories_df = pd.read_csv('categories_to_departments.csv')
+intents_df = pd.read_csv('intents_to_departments.csv')
+
+# Create dictionaries for quick lookup
+category_to_department = dict(zip(categories_df['Category'], categories_df['Department']))
+intent_to_department = dict(zip(intents_df['Intent'], intents_df['Department']))
+
 
 complaint_ns = Namespace('complaint', description='Complaint operations')
 
@@ -59,26 +69,32 @@ class AddComplaint(Resource):
         if not description:
             return {'message': 'Complaint not found'}, 404
 
+        # Classify the complaint using the model
         sub_category = categorize_complaint(description)
-        category = Department.query.filter_by(branch=sub_category).first().name
-        ai_response = chat_with_model(description)
 
-        # Assign the complaint to a department based on the category
-        department = Department.query.filter_by(branch=sub_category).first()
+        # Map sub_category to department using both mappings
+        department_name = category_to_department.get(sub_category) or intent_to_department.get(sub_category)
+        if not department_name:
+            department_name = 'Pending'  # Default to "Pending" if no mapping is found
+
+        # Fetch the department from the database
+        department = Department.query.filter_by(name=department_name).first()
         if department:
             department_id = department.id
         else:
-            # If no department matches the category, assign it to the "Pending" department
-            pending_department = Department.query.filter_by(
-                name='Pending').first()
+            # If no department matches, assign it to the "Pending" department
+            pending_department = Department.query.filter_by(name='Pending').first()
             if pending_department:
                 department_id = pending_department.id
+
+        # Generate AI response
+        ai_response = chat_with_model(description)
 
         # Create a new complaint with default values
         new_complaint = Complaint(
             title=data['title'],
             description=data['description'],
-            category=category,
+            category=department_name,
             sub_category=sub_category,
             user_id=user_id,
             department_id=department_id,
@@ -87,13 +103,14 @@ class AddComplaint(Resource):
         db.session.add(new_complaint)
         db.session.commit()
 
-        return {"id": new_complaint.id,
-                "title": title,
-                "description": description,
-                "response": ai_response,
-                "category": category,
-                "sub_category": sub_category}, 201
-
+        return {
+            "id": new_complaint.id,
+            "title": title,
+            "description": description,
+            "response": ai_response,
+            "category": department_name,
+            "sub_category": sub_category
+        }, 201
 
 @complaint_ns.route('/usercomplaints')
 class UserComplaints(Resource):

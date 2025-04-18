@@ -26,9 +26,9 @@ authorizations = {
 }
 
 
-def create_app(config_class=Config):
+def create_app():
     app = Flask(__name__)
-    app.config.from_object(config_class)
+    app.config.from_object(Config)
 
     db.init_app(app)
     jwt = JWTManager(app)
@@ -67,6 +67,7 @@ def create_app(config_class=Config):
         # insert_users()
     return app
 
+app = create_app()
 
 if __name__ == '__main__':
     app = create_app()
