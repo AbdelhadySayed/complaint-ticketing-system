@@ -76,6 +76,11 @@ class AdminDashboard(Resource):
         responded = df['has_response'].sum()
         pending = len(df) - responded
         print(pending, responded)
+        # Ensure both columns are in datetime format
+        df['response_at'] = pd.to_datetime(df['response_at'], errors='coerce')
+        df['created_at'] = pd.to_datetime(df['created_at'], errors='coerce')
+
+        # Calculate response time in hours
         df['response_time'] = (df['response_at'] - df['created_at']).dt.total_seconds() / 3600
         #df = df.dropna(subset=['response_time', 'department_id'])
         
