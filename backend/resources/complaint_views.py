@@ -75,15 +75,16 @@ class AddComplaint(Resource):
         # Map sub_category to department using both mappings
         department_name = category_to_department.get(sub_category) or intent_to_department.get(sub_category)
         if not department_name:
-            department_name = 'Pending'  # Default to "Pending" if no mapping is found
+            department_name = 'PENDING'  # Default to "Pending" if no mapping is found
 
         # Fetch the department from the database
         department = Department.query.filter_by(name=department_name).first()
-        if department:
+        print(department)
+        if department is not None:
             department_id = department.id
         else:
             # If no department matches, assign it to the "Pending" department
-            pending_department = Department.query.filter_by(name='Pending').first()
+            pending_department = Department.query.filter_by(name='PENDING').first()
             if pending_department:
                 department_id = pending_department.id
 

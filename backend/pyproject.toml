@@ -27,8 +27,7 @@ dependencies = [
     "transformers",
     "werkzeug",
     "gunicorn",
-    "pysqlite3-binary",
+    #"pysqlite3-binary;sys_platform='linux'",
 ]
-
 
 

@@ -1,7 +1,10 @@
 from langchain_ollama import OllamaEmbeddings
-__import__('pysqlite3')
-import sys
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+try:
+    __import__('pysqlite3')
+    import sys
+    sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+except:
+    print("pysqlite3 not found, using built-in sqlite3")
 from langchain_chroma import Chroma
 from langchain_core.documents import Document
 import os

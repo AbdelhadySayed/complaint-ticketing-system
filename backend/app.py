@@ -63,7 +63,7 @@ def create_app():
     api.add_namespace(analytics_ns)
     with app.app_context():
         db.create_all()
-        # insert_departments()
+        insert_departments()
         # insert_users()
     return app
 
