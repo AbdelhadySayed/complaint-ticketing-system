@@ -1,0 +1,41 @@
+[project]
+name = "backend"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10.11"
+dependencies = [
+    "alembic",
+    "faker",
+    "flask",
+    "flask-compress",
+    "flask-cors",
+    "flask-jwt-extended",
+    "flask-migrate",
+    "flask-restx",
+    "flask-sqlalchemy",
+    "joblib",
+    "langchain",
+    "langchain-chroma",
+    "langchain-ollama",
+    "nltk",
+    "numpy",
+    "pandas",
+    "plotly",
+    "pyjwt==2.9.0",
+    "scikit-learn",
+    "transformers",
+    "werkzeug",
+    "gunicorn",
+    "torch",
+    "torchvision",
+    "torchaudio",
+]
+[tool.uv.sources]
+torch = { index = "pytorch" }
+
+[[tool.uv.index]]
+name = "pytorch"
+url = "https://download.pytorch.org/whl/cu126"
+
+

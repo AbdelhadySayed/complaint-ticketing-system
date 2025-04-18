@@ -1,0 +1,25 @@
+# Ignore Python cache files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore virtual environments
+.venv/
+.qodo/
+
+# Ignore IDE files
+.vscode/
+*.swp
+
+# Ignore Docker-related files
+Dockerfile
+.dockerignore
+
+# Ignore logs and temporary files
+*.log
+*.tmp
+*.bak
+*.swp
+
+#ignore chromadb files
+chrome_langchain_db/

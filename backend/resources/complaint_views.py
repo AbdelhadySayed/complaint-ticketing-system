@@ -4,11 +4,11 @@ from models.complaint import Complaint
 from models.user import User
 from models.department import Department
 from models import db
-from services.recommendation import generate_response
+# from services.recommendation import generate_response
 from services.classification import categorize_complaint
 from datetime import datetime
 from sqlalchemy import desc
-
+from services.recommender import chat_with_model
 
 complaint_ns = Namespace('complaint', description='Complaint operations')
 
@@ -43,11 +43,11 @@ response_model = complaint_ns.model('Response', {
 @complaint_ns.route('/addcomplaint')
 class AddComplaint(Resource):
     @complaint_ns.expect(complaint_model)
-    @jwt_required()
     @complaint_ns.doc(security='Bearer Auth')
+    @jwt_required()
     def post(self):
         """Submit a complaint by the user"""
-        user_id = get_jwt_identity()
+        user_id = int(get_jwt_identity())
         data = complaint_ns.payload
         number = data["number_of_complaints"]
 
@@ -61,7 +61,7 @@ class AddComplaint(Resource):
 
         sub_category = categorize_complaint(description)
         category = Department.query.filter_by(branch=sub_category).first().name
-        ai_response = generate_response(description)
+        ai_response = chat_with_model(description)
 
         # Assign the complaint to a department based on the category
         department = Department.query.filter_by(branch=sub_category).first()
@@ -100,7 +100,7 @@ class UserComplaints(Resource):
     @jwt_required()
     def get(self):
         """Retrieve all complaints submitted by the logged-in user."""
-        current_user_id = get_jwt_identity()
+        current_user_id = int(get_jwt_identity())
         complaints = Complaint.query.filter_by(user_id=current_user_id).all()
 
         return [{
@@ -125,7 +125,7 @@ class SetSatisfaction(Resource):
     @jwt_required()
     def post(self, complaint_id):
         """Submit user satisfaction for a complaint."""
-        current_user_id = get_jwt_identity()
+        current_user_id = int(get_jwt_identity())
         complaint = Complaint.query.filter_by(
             id=complaint_id, user_id=current_user_id).first()
 
@@ -145,7 +145,7 @@ class RespondToComplaint(Resource):
     @jwt_required()
     def post(self, complaint_id):
         """Allow department users to respond to complaints assigned to their department."""
-        current_user_id = get_jwt_identity()
+        current_user_id = int(get_jwt_identity())
         user = User.query.get(current_user_id)
 
         if not user or "department" not in user.role.split("_"):
@@ -172,7 +172,7 @@ class DepartmentComplaints(Resource):
     @jwt_required()
     def get(self):
         """Retrieve all complaints assigned to the department of the logged-in department user."""
-        current_user_id = get_jwt_identity()
+        current_user_id = int(get_jwt_identity())
         user = User.query.get(current_user_id)
 
         if not user:
@@ -201,7 +201,7 @@ class AllComplaints(Resource):
     @jwt_required()
     # @api.doc(security='Bearer Auth')  # Require Bearer Auth
     def get(self):
-        current_user_id = get_jwt_identity()
+        current_user_id = int(get_jwt_identity())
         user = User.query.get(current_user_id)
         # if not user.is_admin:
         #     return {'message': 'Unauthorized'}, 403

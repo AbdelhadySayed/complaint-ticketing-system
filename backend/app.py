@@ -14,6 +14,7 @@ from flask_cors import CORS
 from resources.complaint_views import complaint_ns
 from resources.auth_views import auth_ns
 from resources.analytics_views import analytics_ns
+from models.user import User
 # Define authorizations for Swagger UI
 authorizations = {
     'Bearer Auth': {
@@ -40,6 +41,15 @@ def create_app(config_class=Config):
     def check_if_token_in_blacklist(jwt_header, jwt_payload):
         return jwt_payload['jti'] in blacklist
 
+    @jwt.user_identity_loader
+    def user_identity_lookup(user):
+        return user
+    
+    @jwt.user_lookup_loader
+    def user_lookup_callback(_jwt_header, jwt_data):
+        identity = jwt_data["sub"]
+        return User.query.filter_by(id=identity).one_or_none()
+        
     # Initialize Api with authorizations
     api = Api(
         app,
