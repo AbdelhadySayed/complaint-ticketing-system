@@ -1,0 +1,12 @@
+Category,Department,Description,department_slug
+ORDER,Orders & Purchases,"Related to order placement and management",orders_and_purchases
+SHIPPING,Shipping & Delivery,"Related to shipment changes and addresses",shipping_and_delivery
+DELIVERY,Shipping & Delivery,"Delivery options, periods, and issues",shipping_and_delivery
+CANCEL,Returns & Refunds,"Order cancellation and fee inquiries",returns_and_refunds
+INVOICE,Billing & Invoices,"Invoice generation and review",billing_and_invoices
+PAYMENT,Billing & Invoices,"Issues with or questions about payments",billing_and_invoices
+REFUND,Returns & Refunds,"Refund requests and tracking",returns_and_refunds
+FEEDBACK,Feedback & Community,"Reviews, complaints, and suggestions",feedback_and_community
+CONTACT,Customer Service,"Customer inquiries and live agent requests",customer_service
+ACCOUNT,Accounts & Access,"Login, registration, and account management",accounts_and_access
+SUBSCRIPTION,Feedback & Community,"Newsletters and promotional preferences",feedback_and_community
