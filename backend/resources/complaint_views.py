@@ -10,7 +10,7 @@ from datetime import datetime
 from sqlalchemy import desc
 from services.recommender import chat_with_model
 import pandas as pd
-
+from services.vector import add_reply_to_chromadb
 # Load mappings using pandas
 categories_df = pd.read_csv('categories_to_departments.csv')
 intents_df = pd.read_csv('intents_to_departments.csv')
@@ -179,9 +179,15 @@ class RespondToComplaint(Resource):
         data = complaint_ns.payload
         complaint.admin_response = data['department_response']
         complaint.admin_eval_on_ai_response = data['admin_eval_on_ai_response']
-        complaint.response_at = datetime.utcnow()
+        complaint.response_at = datetime.now()
         db.session.commit()
-
+        # Add the response to the ChromaDB
+        add_reply_to_chromadb(
+            instruction=complaint.description,
+            response=data['department_response'],
+            category=complaint.category,
+            intent=complaint.sub_category
+        )
         return {'message': 'Response added successfully'}, 200
 
 

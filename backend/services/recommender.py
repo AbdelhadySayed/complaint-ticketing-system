@@ -1,16 +1,14 @@
 from langchain_ollama.llms import OllamaLLM
 from langchain_core.prompts import ChatPromptTemplate
-from services.vector import retriever
+
 
 
 model = OllamaLLM(model="llama3.2")
 
 template = """
-You are a customer ticket support AI Assistant and your job is only to instruct users on how to solve their problems.
-this is not a chat but only a reply.
-ensure the customer that there will be an employee replying to him as well soon.
+You will be provided with a user's question and a set of relevant problems and their answers. Your job is to find the answer associated with the most relevant problem and provide that answer *verbatim* to the user. Do not generate any additional text or explanations.
 
-Here are some relevant problems and how to handle them: {problems}
+Here are the relevant problems and their answers: {problems}
 
 Here is the question to answer: {question}
 """
@@ -18,9 +16,8 @@ prompt = ChatPromptTemplate.from_template(template)
 chain = prompt | model
 
 def chat_with_model(question: str):
-
-    
+    from services.vector import retriever
     problems = retriever.invoke(question)
+    print(problems)
     result = chain.invoke({"problems": problems, "question": question})
-    print(result)
     return result
