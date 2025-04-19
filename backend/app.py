@@ -1,4 +1,5 @@
-from flask import Flask
+import os
+from flask import Flask, render_template, send_from_directory
 from flask_restx import Api
 from flask_jwt_extended import JWTManager
 from flask_sqlalchemy import SQLAlchemy
@@ -44,19 +45,27 @@ def create_app():
     @jwt.user_identity_loader
     def user_identity_lookup(user):
         return user
-    
+
     @jwt.user_lookup_loader
     def user_lookup_callback(_jwt_header, jwt_data):
         identity = jwt_data["sub"]
         return User.query.filter_by(id=identity).one_or_none()
-        
+
+    @app.route('/')
+    @app.route('/<path:path>')
+    def serve_react_app(path=""):
+        if path != "" and os.path.exists(os.path.join(app.static_folder, path)):
+            return send_from_directory(app.static_folder, path)
+        else:
+            return send_from_directory(app.static_folder, 'index.html')
     # Initialize Api with authorizations
     api = Api(
         app,
         title='Complaint Management API',
         version='1.0',
         authorizations=authorizations,  # Add authorizations here
-        security='Bearer Auth'  # Enable Bearer Auth by default
+        security='Bearer Auth',
+        doc="/doc"  # Enable Bearer Auth by default
     )
     api.add_namespace(auth_ns)
     api.add_namespace(complaint_ns)
@@ -65,7 +74,9 @@ def create_app():
         db.create_all()
         insert_departments()
         # insert_users()
+
     return app
+
 
 app = create_app()
 

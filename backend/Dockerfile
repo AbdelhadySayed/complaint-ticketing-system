@@ -22,10 +22,10 @@ RUN apt-get update && apt-get install -y curl
 #install ollama
 RUN curl -fsSL https://ollama.com/install.sh | sh
 
-# RUN ollama serve && \
-#     sleep 10 && \
-#     ollama pull llama3.2 && \
-#     ollama pull mxbai-embed-large
+RUN ollama serve && \
+    sleep 10 && \
+    ollama pull llama3.2 && \
+    ollama pull mxbai-embed-large
 
 # Expose the port the app runs on
 EXPOSE 5000
