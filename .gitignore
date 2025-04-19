@@ -1,2 +1,4 @@
 backend/services/recommendation_model/pytorch_model.bin
 .qodo
+__pycache__/
+*.pyc
