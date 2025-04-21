@@ -1,0 +1,6 @@
+Ticket #,Ticket,Correct Categories,Predicted Category,Top 3 Predictions,Test Result
+1,I want to cancel my order and get a refund because I never received it.,"['cancel_order', 'get_refund']",cancel_order,"cancel_order (82.22%), delete_account (7.02%), check_cancellation_fee (0.07%)",0
+2,"Can you help me track my recent order? Also, I need to change my shipping address.","['track_order', 'change_shipping_address']",track_order,"track_order (35.74%), edit_account (21.76%), check_invoice (3.62%)",0
+3,I forgot my password and now my payment isn't going through. Help!,"['account_recover_password', 'payment_issue']",account_recover_password,"account_recover_password (97.92%), delete_account (2.05%), edit_account (0.19%)",0
+4,"Where can I see available delivery options? Also, I'd like to delete my account permanently.","['delivery_options', 'delete_account']",contact_human_agent,"contact_human_agent (55.97%), change_order (23.31%), delivery_options (15.78%)",0
+5,"I tried to contact support, but no human agent responded. My payment also failed!","['contact_human_agent', 'payment_issue']",contact_customer_service,"contact_customer_service (97.89%), get_invoice (3.75%), check_refund_policy (0.18%)",0
