@@ -14,8 +14,8 @@ class User(db.Model):
 
     # Relationships
     complaints = db.relationship('Complaint', backref='user', lazy=True)
-    #department = db.relationship('Department', backref=db.backref('users', lazy=True))
-
+    department = db.relationship('Department', backref=db.backref('users', lazy=True))
+    
     @property
     def is_admin(self):
         """Check if user is an admin."""

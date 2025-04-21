@@ -1,3 +1,4 @@
+from flask import request
 from flask_restx import Resource, Namespace, fields
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from models.complaint import Complaint
@@ -11,6 +12,7 @@ from sqlalchemy import desc
 from services.recommender import chat_with_model
 import pandas as pd
 from services.vector import add_reply_to_chromadb
+from models.sub_category import SubCategory
 # Load mappings using pandas
 categories_df = pd.read_csv('categories_to_departments.csv')
 intents_df = pd.read_csv('intents_to_departments.csv')
@@ -73,20 +75,12 @@ class AddComplaint(Resource):
         sub_category = categorize_complaint(description)
 
         # Map sub_category to department using both mappings
-        department_name = category_to_department.get(sub_category) or intent_to_department.get(sub_category)
-        if not department_name:
-            department_name = 'PENDING'  # Default to "Pending" if no mapping is found
-
-        # Fetch the department from the database
-        department = Department.query.filter_by(name=department_name).first()
-        print(department)
-        if department is not None:
-            department_id = department.id
-        else:
-            # If no department matches, assign it to the "Pending" department
-            pending_department = Department.query.filter_by(name='PENDING').first()
-            if pending_department:
-                department_id = pending_department.id
+        subcategory = SubCategory.query.filter_by(name=sub_category).first()
+        department = subcategory.department
+        
+        if department is None:
+            department=Department.query.filter_by(name="PENDING").first()
+       
 
         # Generate AI response
         ai_response = chat_with_model(description)
@@ -95,10 +89,10 @@ class AddComplaint(Resource):
         new_complaint = Complaint(
             title=data['title'],
             description=data['description'],
-            category=department_name,
+            category=department.name,
             sub_category=sub_category,
             user_id=user_id,
-            department_id=department_id,
+            department_id=department.id,
             ai_response=ai_response
         )
         db.session.add(new_complaint)
@@ -109,7 +103,7 @@ class AddComplaint(Resource):
             "title": title,
             "description": description,
             "response": ai_response,
-            "category": department_name,
+            "category": department.name,
             "sub_category": sub_category
         }, 201
 
@@ -231,9 +225,19 @@ class AllComplaints(Resource):
         #     return {'message': 'Unauthorized'}, 403
         if user.role == "client":
             complaints = user.complaints
+        elif user.role == "admin":  
+            query = Complaint.query
+            start_date = datetime.strptime(request.args.get(
+                "startDate"), "%Y-%m-%dT%H:%M") if request.args.get("startDate") else None
+            end_date = datetime.strptime(request.args.get(
+                "endDate"), "%Y-%m-%dT%H:%M") if request.args.get("endDate") else None
+            # 3. Convert to DataFrame and clean data
+            print(start_date, end_date)
+            query = query.filter(Complaint.created_at >= start_date) if start_date else query
+            query = query.filter(Complaint.created_at <= end_date) if end_date else query
+            complaints = query.all()
         else:
-            complaints = Complaint.query.filter_by(
-                category=user.role[:-11]).order_by(desc(Complaint.id)).all()
+            complaints = user.department.complaints
         return [{
             'id': c.id,
             'title': c.title,

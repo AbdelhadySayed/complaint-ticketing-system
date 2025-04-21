@@ -16,6 +16,8 @@ from resources.complaint_views import complaint_ns
 from resources.auth_views import auth_ns
 from resources.analytics_views import analytics_ns
 from models.user import User
+from models.sub_category import SubCategory
+from scripts.seed_data import generate_fake_data
 # Define authorizations for Swagger UI
 authorizations = {
     'Bearer Auth': {
@@ -73,6 +75,8 @@ def create_app():
     with app.app_context():
         db.create_all()
         insert_departments()
+        SubCategory.add_sub_category()
+        # print(generate_fake_data(15, 4))  # Added print to see the result
         # insert_users()
 
     return app
@@ -81,5 +85,4 @@ def create_app():
 app = create_app()
 
 if __name__ == '__main__':
-    app = create_app()
     app.run(debug=True)

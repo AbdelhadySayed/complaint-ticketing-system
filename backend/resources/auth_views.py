@@ -56,7 +56,7 @@ class UserRegister(Resource):
     def post(self):
         """ Register a new user """
         data = auth_ns.payload
-
+        print(data)
         # Check a valid email
         if not User.is_valid_email(data['email']):
             return {'message': 'Invalid email format'}, 400

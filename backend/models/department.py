@@ -7,8 +7,7 @@ class Department(db.Model):
 
     # Relationship with Complaint table
     complaints = db.relationship('Complaint', backref='department', lazy=True)
-
-
+    
 # Insert predefined departments
 def insert_departments():
 
