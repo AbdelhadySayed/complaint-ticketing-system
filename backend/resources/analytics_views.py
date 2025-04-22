@@ -44,11 +44,11 @@ def _save_html_figure(fig, filename):
     try:
         filepath = HTML_FIGURES_DIR / f"{filename}.html"
         fig.update_layout(
-            plot_bgcolor='#717078',
-            paper_bgcolor='#717078',
-            font=dict(color='white'),
-            xaxis=dict(showgrid=False, color='white'),
-            yaxis=dict(showgrid=False, color='white')
+            plot_bgcolor='white',
+            paper_bgcolor='white',
+            font=dict(color='black'),
+            xaxis=dict(showgrid=False, color='black'),
+            yaxis=dict(showgrid=False, color='black')
         )
         
         # Set config to include necessary plotly dependencies
@@ -169,7 +169,10 @@ class AdminDashboard(Resource):
 
         fig.update_layout(
             title_text='Complaint Status Distribution',
-            showlegend=True
+            showlegend=True,
+            plot_bgcolor='white',
+            paper_bgcolor='white',
+            font=dict(color='black')
         )
         return fig
 
@@ -189,7 +192,9 @@ class AdminDashboard(Resource):
                 title_text='Average Response Time by Department',
                 yaxis_title='Hours',
                 xaxis_title='Department',
-                plot_bgcolor='rgba(240,240,240,0.8)'
+                plot_bgcolor='white',
+                paper_bgcolor='white',
+                font=dict(color='black')
             )
             return fig
 
@@ -215,7 +220,9 @@ class AdminDashboard(Resource):
             title_text='Average Response Time by Department',
             yaxis_title='Hours',
             xaxis_title='Department',
-            plot_bgcolor='rgba(240,240,240,0.8)'
+            plot_bgcolor='white',
+            paper_bgcolor='white',
+            font=dict(color='black')
         )
         return fig
 
@@ -234,7 +241,9 @@ class AdminDashboard(Resource):
             title_text='Complaints by Category',
             yaxis_title='Count',
             xaxis_title='Category',
-            plot_bgcolor='rgba(240,240,240,0.8)'
+            plot_bgcolor='white',
+            paper_bgcolor='white',
+            font=dict(color='black')
         )
         return fig
 
@@ -254,7 +263,9 @@ class AdminDashboard(Resource):
             title_text='Top 10 Complaint Sub-Categories',
             yaxis_title='Count',
             xaxis_title='Sub-Category',
-            plot_bgcolor='rgba(240,240,240,0.8)'
+            plot_bgcolor='white',
+            paper_bgcolor='white',
+            font=dict(color='black')
         )
         return fig
 
@@ -275,7 +286,9 @@ class AdminDashboard(Resource):
             title_text='Complaints Over Time',
             yaxis_title='Daily Complaints',
             xaxis_title='Date',
-            plot_bgcolor='rgba(240,240,240,0.8)'
+            plot_bgcolor='white',
+            paper_bgcolor='white',
+            font=dict(color='black')
         )
         return fig
 
@@ -293,6 +306,8 @@ class AdminDashboard(Resource):
             title_text='Response Time Distribution',
             yaxis_title='Count',
             xaxis_title='Hours',
-            plot_bgcolor='rgba(240,240,240,0.8)'
+            plot_bgcolor='white',
+            paper_bgcolor='white',
+            font=dict(color='black')
         )
         return fig
