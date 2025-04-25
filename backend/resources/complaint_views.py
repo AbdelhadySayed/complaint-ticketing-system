@@ -5,14 +5,16 @@ from models.complaint import Complaint
 from models.user import User
 from models.department import Department
 from models import db
-# from services.recommendation import generate_response
 from services.classification import categorize_complaint
 from datetime import datetime
 from sqlalchemy import desc
-from services.recommender import chat_with_model
+from services.recommendation_rag import chat_with_model
 import pandas as pd
 from services.vector import add_reply_to_chromadb
 from models.sub_category import SubCategory
+# from services.recommendation_finetune import response_generator # to be imported if we will use BART finetuned model
+
+
 # Load mappings using pandas
 categories_df = pd.read_csv('categories_to_departments.csv')
 intents_df = pd.read_csv('intents_to_departments.csv')
@@ -84,6 +86,8 @@ class AddComplaint(Resource):
 
         # Generate AI response
         ai_response = chat_with_model(description)
+
+        #ai_response = response_generator.generate_response(description) # if you want to use BART finetuned model
 
         # Create a new complaint with default values
         new_complaint = Complaint(

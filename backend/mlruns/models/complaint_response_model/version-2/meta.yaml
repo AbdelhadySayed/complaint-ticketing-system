@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1745183019064
+current_stage: None
+description: ''
+last_updated_timestamp: 1745183019064
+name: complaint_response_model
+run_id: 3afb9427dea34f0ca84c4bd57f0c88be
+run_link: ''
+source: mlflow-artifacts:/770577810849782137/3afb9427dea34f0ca84c4bd57f0c88be/artifacts/bart_complaint_model
+status: READY
+status_message: null
+storage_location: mlflow-artifacts:/770577810849782137/3afb9427dea34f0ca84c4bd57f0c88be/artifacts/bart_complaint_model
+user_id: null
+version: 2

@@ -3,7 +3,7 @@ from models import db
 from models.user import User
 from models.complaint import Complaint
 from services.classification import categorize_complaint
-from services.recommender import chat_with_model
+from services.recommendation_rag import chat_with_model
 from models.sub_category import SubCategory
 from models.department import Department
 import random

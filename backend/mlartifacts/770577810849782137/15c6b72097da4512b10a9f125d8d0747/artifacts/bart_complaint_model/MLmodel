@@ -1,0 +1,33 @@
+artifact_path: bart_complaint_model
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.transformers
+    python_version: 3.11.3
+  transformers:
+    code: null
+    components:
+    - tokenizer
+    framework: pt
+    instance_type: Text2TextGenerationPipeline
+    model_binary: model
+    pipeline_model_type: BartForConditionalGeneration
+    source_model_name: services/recommendation_model
+    task: text2text-generation
+    tokenizer_type: BartTokenizer
+    torch_dtype: torch.float32
+    transformers_version: 4.30.0
+is_signature_from_type_hint: false
+mlflow_version: 2.21.3
+model_size_bytes: 559555710
+model_uuid: 2ca3988a2cbf471787f8c6e34d684839
+prompts: null
+run_id: 15c6b72097da4512b10a9f125d8d0747
+signature:
+  inputs: '[{"type": "string", "required": true}]'
+  outputs: '[{"type": "string", "required": true}]'
+  params: null
+type_hint_from_example: false
+utc_time_created: '2025-04-20 20:40:41.085839'

@@ -13,7 +13,7 @@ import re
 # nltk.download('punkt_tab')
 
 # load the model
-model = joblib.load("services/classification_models/SGD.pkl")
+model = joblib.load("services/classification_models/Random Forest.pkl")
 
 # Load TF-IDF Vectorizer
 tfidf_vectorizer = joblib.load("services/classification_models/tfidf_vectorizer.pkl")

@@ -1,0 +1,6 @@
+artifact_location: mlflow-artifacts:/770577810849782137
+creation_time: 1745177062907
+experiment_id: '770577810849782137'
+last_update_time: 1745177062907
+lifecycle_stage: active
+name: BART_Retraining

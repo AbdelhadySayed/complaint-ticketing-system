@@ -13,7 +13,8 @@ class Complaint(db.Model):
     client_satisfaction = db.Column(db.String(20), nullable=True) # client satiffaction 
     created_at = db.Column(db.DateTime, default=datetime.utcnow)  # Automatically set to current time
     response_at = db.Column(db.DateTime)  # Will be set when admin responds
-
+    used_for_training = db.Column(db.Boolean, default=False) # To check if the complaint used for training the AI model or not
+    
     # Foreign key to User table
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
