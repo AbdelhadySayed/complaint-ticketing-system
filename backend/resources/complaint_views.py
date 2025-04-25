@@ -160,14 +160,13 @@ class RespondToComplaint(Resource):
         current_user_id = int(get_jwt_identity())
         user = User.query.get(current_user_id)
 
-        if not user or "department" not in user.role.split("_"):
-            return {'message': 'Unauthorized: Only department users can respond to complaints'}, 403
+       
 
         complaint = Complaint.query.get(complaint_id)
         if not complaint:
             return {'message': 'Complaint not found'}, 404
 
-        if complaint.category != user.role[:-11]:
+        if complaint.department_id != user.department_id:
             return {'message': 'Unauthorized: This complaint is not assigned to your department'}, 403
 
         data = complaint_ns.payload

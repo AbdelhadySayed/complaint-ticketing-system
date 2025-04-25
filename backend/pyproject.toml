@@ -23,7 +23,7 @@ dependencies = [
     "pandas",
     "plotly",
     "pyjwt==2.9.0",
-    "scikit-learn",
+    "scikit-learn==1.6.1",
     "transformers",
     "werkzeug",
     "gunicorn",

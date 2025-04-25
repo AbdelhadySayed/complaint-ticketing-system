@@ -1,173 +1,160 @@
+# Complaint Ticketing System
 
-# 📢 Complaint Ticketing & Resolution System  
-
-A centralized, AI-powered platform to manage and resolve user complaints. It integrates complaint submission, automated ticket routing, intelligent resolution suggestions, and administrative dashboards — all built with modular components and modern technologies.
-
----
-
-## 🚀 Project Overview  
-
-This system addresses the challenges of decentralized and manual complaint handling by providing:
-
-- 🧠 AI-driven complaint categorization  
-- 📨 Automated ticket routing to support teams  
-- 📊 Real-time tracking and analytics dashboards  
-- 🤖 Recommendation models for faster resolutions  
-- 🗣️ User and admin feedback loops  
-
-It is built as a **modular system**, where component (frontend) is maintained as a **Git submodule** for cleaner collaboration.
+A smart complaint management platform that combines AI classification with human expertise for efficient ticket resolution. The system automatically categorizes complaints, generates initial responses, and routes tickets to appropriate customer service representatives.
 
 ---
 
-## 🎯 Key Features  
+## Features
 
-- ✅ Complaint Submission & Tracking – Users log complaints, track progress, and receive real-time updates.  
-- ✅ Automated Ticket Routing – AI classifies complaints and routes them to relevant teams.  
-- ✅ AI-Powered Recommendations – Suggest solutions based on historical data using NLP models.  
-- ✅ Feedback System – Users can rate both AI and human agent responses.  
-- ✅ Analytics & Reporting – Admin dashboard visualizes key complaint KPIs and team performance.  
-
----
-
-## 📂 Repository Structure  
-
-complaint-ticketing-system/
-├── frontend/         # React-based frontend UI
-├── backend/          # Flask backend API
-├── ml_models/        # Machine learning models (NLP classification & recommendation)
-├── notebooks/        # Jupyter notebooks for experiments and EDA
-├── data/             # Training and testing datasets
-├── docs/             # Documentation and system design
-├── tests/            # Unit tests for backend & models
-├── README.md         # Main documentation
-├── LICENSE
-└── .gitignore
-
-> Each folder is designed for independent development while remaining integrated in the main workflow.
+- Automated complaint classification using machine learning
+- AI-generated initial responses
+- Smart routing to customer service teams
+- Real-time complaint tracking and monitoring
+- Analytics dashboard for performance metrics
+- Dual response system (AI + Human)
 
 ---
 
-## ⚙️ Tech Stack
+## Technology Stack
 
-### 🖥️ Frontend
-- React  
-- Bootstrap (UI)  
+### Frontend
+- React.js
+- Tailwind CSS
+- TypeScript
 
-### 🧠 Machine Learning
-- Scikit-learn, TensorFlow
-- Transformers (BERT/GPT) for text classification
-- NLP-based recommendation system
+### Backend
+- Flask (Python)
+- SQLAlchemy
+- JWT Authentication
+- REST API
 
-### 🔗 Backend & API
-- Flask (RESTful API)
-- FastAPI (optional upgrade path for async performance)
-- SQL Database for persistent complaint data
-
-### 📊 Visualization & Dashboard
-- Plotly / Matplotlib  
-- Custom analytics dashboard for KPIs
+### AI Components
+- Scikit-learn for classification
+- Natural Language Processing for response generation
+- ChromaDB for vector storage
 
 ---
 
-## 🚀 Getting Started  
+## Installation and Setup
 
-### 1️⃣ Clone with Submodules
-
+### Backend Setup
 ```bash
-git clone --recurse-submodules https://github.com/yourusername/complaint-ticketing-system.git
-cd complaint-ticketing-system
-git submodule update --init --recursive
-```
-
----
-
-### 2️⃣ Run the Backend
-
-```bash
+# Navigate to backend directory
 cd backend
-python app.py
+
+# Create virtual environment
+uv venv
+
+
+# Install dependencies
+uv sync
+
+
+# Initialize database
+uv run flask db upgrade
+
+# Run the server
+uv run flask run
 ```
 
-_Or if using FastAPI / Node.js:_
-
+### Frontend Setup
 ```bash
-uvicorn main:app --reload
-```
-
----
-
-### 3️⃣ Run the Frontend
-
-```bash
+# Navigate to frontend directory
 cd frontend
+
+# Install dependencies
 npm install
-npm start
+
+
+# Start development server
+npm run dev
 ```
 
 ---
 
-### 🔌 API Endpoints
+## API Documentation
 
-| Method | Endpoint               | Description                     |
-|--------|------------------------|---------------------------------|
-| POST   | /submit-complaint      | Submit a new complaint          |
-| GET    | /complaints            | Fetch all complaints            |
-| PATCH  | /update-status         | Update ticket status            |
-| GET    | /recommendation        | Get suggested resolutions (AI)  |
+### Authentication
+- POST /api/auth/login - User authentication
+- POST /api/auth/register - New user registration
 
----
+### Complaints
+- POST /api/complaints - Submit new complaint
+- GET /api/complaints - List all complaints
+- GET /api/complaints/:id - Get specific complaint
+- PUT /api/complaints/:id - Update complaint status
 
-## 📊 Analytics & AI Models
-
-- NLP models (BERT, GPT) used for intent classification
-- Recommendation engine trained on historical tickets
-- Dashboards to track:
-  - Common complaint types
-  - Agent performance
-  - Resolution time trends
+### Analytics
+- GET /api/analytics/dashboard - Get dashboard metrics
+- GET /api/analytics/performance - Get team performance data
 
 ---
 
-## 📦 Deployment Recommendations
+## User Types
 
-| Component     | Suggested Platforms           |
-|---------------|-------------------------------|
-| Frontend      | Vercel / Netlify / GitHub Pages  
-| Backend       | Heroku / AWS / DigitalOcean    
-| ML Models     | Google AI / AWS SageMaker      
+### Regular Users
+- Submit and track complaints
+- View complaint history
+- Rate responses
+- Download complaint records
+
+### Customer Service Representatives
+- View assigned complaints
+- Review AI suggestions
+- Respond to tickets
+- Update ticket status
+
+### Administrators
+- Access analytics dashboard
+- Manage user accounts
+- Configure AI settings
+- Generate reports
 
 ---
 
-## 🧪 Tests
+## Environment Variables
 
-To run unit tests:
+### Backend
+```
+FLASK_APP=app.py
+FLASK_ENV=development
+DATABASE_URL=sqlite:///complaints.db
+JWT_SECRET_KEY=your-secret-key
+AI_MODEL_PATH=./models
+```
+
+### Frontend
+```
+VITE_API_URL=http://localhost:5000
+VITE_ENV=development
+```
+
+---
+
+## Development
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Run tests
+5. Submit a pull request
+
+---
+
+## Testing
 
 ```bash
-cd tests
+# Backend tests
+cd backend
 pytest
+
+# Frontend tests
+cd frontend
+npm test
 ```
 
 ---
 
-## 🤝 Contributing
+## License
 
-We welcome contributions! To contribute:
-
-1. Fork the repository  
-2. Create a feature branch  
-3. Commit and push changes  
-4. Open a pull request  
-
-✨ If you find this project useful, don’t forget to give it a ⭐ and share it with others! ✨
-
----
-
-## 📍 Project Status
-
-This project is under active development. Weekly progress and team tasks are managed via GitHub Projects and Zoom team meetings.
-
----
-
-## 📬 Contact
-
-Feel free to reach out via GitHub issues or email for collaboration opportunities.
+MIT License - See LICENSE file for details.

@@ -269,7 +269,7 @@ requires-dist = [
     { name = "pandas" },
     { name = "plotly" },
     { name = "pyjwt", specifier = "==2.9.0" },
-    { name = "scikit-learn" },
+    { name = "scikit-learn", specifier = "==1.6.1" },
     { name = "transformers" },
     { name = "werkzeug" },
 ]

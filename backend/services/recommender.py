@@ -6,7 +6,7 @@ from langchain_core.prompts import ChatPromptTemplate
 model = OllamaLLM(model="llama3.2")
 
 template = """
-You will be provided with a user's question and a set of relevant problems and their answers. Your job is to find the answer associated with the most relevant problem and provide that answer *verbatim* to the user. Do not generate any additional text or explanations.
+You will be provided with a user's question and a set of relevant problems and their answers. Your job is to find the answer associated with the most relevant problem and provide that answer *verbatim* to the user in the form of ordered steps. Do not generate any additional text or explanations.
 
 Here are the relevant problems and their answers: {problems}
 
