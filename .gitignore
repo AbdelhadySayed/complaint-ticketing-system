@@ -29,3 +29,12 @@ dist-ssr
 *.sln
 *.sw?
 .qodo
+backend/static/analytics_figures/complaints_by_category.html
+backend/static/analytics_figures/complaints_over_time.html
+backend/static/analytics_figures/response_time_by_dept.html
+backend/static/analytics_figures/response_time_dist.html
+backend/static/analytics_figures/status_distribution.html
+backend/static/analytics_figures/top_subcategories.html
+backend/services/__pycache__/recommender.cpython-310.pyc
+backend/services/__pycache__/classification.cpython-310.pyc
+backend/models/__pycache__/user.cpython-310.pyc

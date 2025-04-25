@@ -8,9 +8,9 @@ import string
 import re
 
 # Download stopwords
-nltk.download('stopwords')
-nltk.download('punkt')
-nltk.download('punkt_tab')
+# nltk.download('stopwords')
+# nltk.download('punkt')
+# nltk.download('punkt_tab')
 
 # load the model
 model = joblib.load("services/classification_models/SGD.pkl")
