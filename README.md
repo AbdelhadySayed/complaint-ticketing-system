@@ -30,8 +30,9 @@ A smart complaint management platform that combines AI classification with human
 
 ### AI Components
 - Scikit-learn for classification
-- Natural Language Processing for response generation
+- LLMs for response generation
 - ChromaDB for vector storage
+- RAG system and Finetunning 
 
 ---
 
